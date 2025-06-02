@@ -1,16 +1,39 @@
-# spiltify
+# 🌀 Billoop
 
-A new Flutter project.
+**Keep the loop. Kill the awkward math.**
 
-## Getting Started
+Billoop is a sleek, modern expense-splitting app built for real-life friendships, group hangouts, roommates, and recurring bills. Say goodbye to confusion, awkward reminders, and who-paid-what chaos. Split smartly, settle fairly — and never lose track again.
 
-This project is a starting point for a Flutter application.
+---
 
-A few resources to get you started if this is your first Flutter project:
+## 🚀 Features
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+- ✅ **Effortless Bill Splitting** – Even or custom splits for any expense.
+- 🔁 **Recurring Expenses** – Great for rent, subscriptions, and utilities.
+- 👥 **Group-Based Tracking** – Organize expenses by group (trips, homes, teams).
+- 🔔 **Smart Reminders** – Friendly nudges so nobody forgets.
+- 📎 **Receipts & Notes** – Add context and proof with every bill.
+- 🌐 **Cross-Platform Sync** – Everyone stays updated in real time.
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+---
+
+## ⚙️ Tech Stack
+
+| Layer     | Tools/Tech                         |
+|-----------|------------------------------------|
+| Frontend  | Flutter (Dart)                     |
+| Backend   | Node.js + Express or Firebase      |
+| Database  | Firestore / MongoDB                |
+| Auth      | Firebase Authentication            |
+| Payments  | (Optional) Stripe / Razorpay       |
+| Hosting   | Firebase Hosting / Vercel (if web) |
+
+---
+
+## 📦 Getting Started
+
+```bash
+git clone https://github.com/yourusername/billoop.git
+cd billoop
+flutter pub get
+flutter run
