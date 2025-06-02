@@ -1,0 +1,58 @@
+name: spiltify
+description: "A new Flutter project."
+publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+
+version: 1.0.0+1
+
+environment:
+  sdk: ^3.7.2
+
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  # The following adds the Cupertino Icons font to your application.
+  # Use with the CupertinoIcons class for iOS style icons.
+  cupertino_icons: ^1.0.8
+  get: ^4.7.2
+  google_fonts: ^6.2.1
+  cached_network_image: ^3.4.1
+  flutter_svg: ^2.1.0
+  shimmer: ^3.0.0
+  intl: ^0.20.2
+  pinput: ^5.0.1
+  image_picker: ^1.1.2
+  google_mlkit_text_recognition: ^0.15.0
+  permission_handler:
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^5.0.0
+  build_runner: any
+  flutter_gen_runner: any
+
+dependency_overrides:
+  flutter_gen_core: ^5.8.0
+
+flutter_gen:
+  output: lib/app/gen/
+  line_length: 80
+  assets:
+    outputs:
+      style: camel-case
+  fonts:
+    outputs:
+      package_parameter_enabled: true
+  integrations:
+    flutter_svg: true
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/svg/
+
+
+get_cli:
+  sub_folder: false
