@@ -25,6 +25,7 @@ dependencies:
   image_picker: ^1.1.2
   google_mlkit_text_recognition: ^0.15.0
   permission_handler:
+  camera:
 
 dev_dependencies:
   flutter_test:

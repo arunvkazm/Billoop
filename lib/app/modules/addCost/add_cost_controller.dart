@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_mlkit_text_recognition/google_mlkit_text_recognition.dart';
@@ -8,15 +9,26 @@ import 'package:permission_handler/permission_handler.dart';
 
 import '../../data/model/bill_item_model.dart';
 
-class AddCostController extends GetxController {
+class AddCostController extends GetxController with GetSingleTickerProviderStateMixin {
+
+  CameraController? cameraController;
+  AnimationController? animationController;
+  var isCameraInitialized = false.obs;
+
+  late List<CameraDescription> cameras;
+
+
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
   TextEditingController descController = TextEditingController();
   TextEditingController costController = TextEditingController();
   TextEditingController dateController = TextEditingController();
 
+
   var description = ''.obs;
   var amount = ''.obs;
-  var selectedDate = DateTime.now().obs;
+  var selectedDate = DateTime
+      .now()
+      .obs;
   var isManual = true.obs; // Toggle between manual and scanned
   var billItems = <BillItemModel>[].obs;
 
@@ -56,7 +68,41 @@ class AddCostController extends GetxController {
       BillItemModel(name: 'Fries', price: 5.0, quantity: 3),
       BillItemModel(name: 'Water Bottle', price: 2.5, quantity: 2),
     ]);
+    animationController = AnimationController(
+      vsync: this,
+      duration: Duration(seconds: 2),
+    )..repeat(reverse: false);
   }
+
+
+  @override
+  void onReady() {
+    initCamera();
+  }
+
+  Future<void> initCamera() async {
+    try {
+      var status = await Permission.camera.request();
+
+      if (status.isPermanentlyDenied) {
+        await Permission.camera.request();
+      }
+
+      if (!status.isGranted) {
+        await Permission.camera.request();
+      }
+
+      cameras = await availableCameras();
+      cameraController =
+          CameraController(cameras[0], ResolutionPreset.medium);
+      await cameraController?.initialize();
+      isCameraInitialized.value = true;
+    } catch (e) {
+      Get.snackbar("Error", "Failed to initialize camera: $e",
+          snackPosition: SnackPosition.BOTTOM);
+    }
+  }
+
 
 
   Future<void> scanReceipt() async {
@@ -65,7 +111,8 @@ class AddCostController extends GetxController {
       var status = await Permission.camera.request();
 
       if (!status.isGranted) {
-        Get.snackbar('Permission Denied', 'Camera access is required to scan receipts.');
+        Get.snackbar(
+            'Permission Denied', 'Camera access is required to scan receipts.');
         return;
       }
 
@@ -81,8 +128,10 @@ class AddCostController extends GetxController {
       }
 
       final inputImage = InputImage.fromFile(File(imageFile.path));
-      final textRecognizer = TextRecognizer(script: TextRecognitionScript.latin);
-      final RecognizedText recognizedText = await textRecognizer.processImage(inputImage);
+      final textRecognizer = TextRecognizer(
+          script: TextRecognitionScript.latin);
+      final RecognizedText recognizedText = await textRecognizer.processImage(
+          inputImage);
 
       scannedText.value = recognizedText.text;
       isLoading.value = false;
@@ -111,5 +160,40 @@ class AddCostController extends GetxController {
     return items;
   }
 
+  Future<void> scanFromCameraFrame() async {
+    if (cameraController == null || !cameraController!.value.isInitialized)
+      return;
+
+    try {
+      final XFile file = await cameraController!.takePicture();
+      final inputImage = InputImage.fromFilePath(file.path);
+      final textRecognizer = TextRecognizer(
+          script: TextRecognitionScript.latin);
+      final recognizedText = await textRecognizer.processImage(inputImage);
+      scannedText.value = recognizedText.text;
+    } catch (e) {
+      Get.snackbar('Error', 'Failed to process camera frame: $e');
+    }
+  }
+
+  @override
+  void onClose() {
+    cameraController?.dispose();
+    animationController?.dispose();
+    super.onClose();
+  }
+
+  void toggleFlash() async {
+    if (cameraController == null) return;
+
+    final currentMode = cameraController!.value.flashMode;
+    if (currentMode == FlashMode.torch) {
+      await cameraController!.setFlashMode(FlashMode.off);
+    } else {
+      await cameraController!.setFlashMode(FlashMode.torch);
+    }
+  }
+
 
 }
+

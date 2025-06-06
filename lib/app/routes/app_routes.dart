@@ -9,6 +9,9 @@ abstract class Routes {
   static const OTP_VERIFICATION = _Paths.OTP_VERIFICATION;
   static const ADD_COST = _Paths.ADD_COST;
   static const BILL_SCANNER = _Paths.BILL_SCANNER;
+  static const GROUP_SPLIT = _Paths.GROUP_SPLIT;
+  static const SPLIT = _Paths.SPLIT;
+  static const CONFIRM_SPILT = _Paths.CONFIRM_SPILT;
 }
 
 abstract class _Paths {
@@ -19,4 +22,7 @@ abstract class _Paths {
   static const OTP_VERIFICATION = '/otp-verification';
   static const ADD_COST = '/add-cost';
   static const BILL_SCANNER = '/bill-scanner';
+  static const GROUP_SPLIT = '/group-split';
+  static const SPLIT = '/split';
+  static const CONFIRM_SPILT = '/confirm-spilt';
 }

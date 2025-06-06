@@ -29,13 +29,6 @@
 	<key>UIMainStoryboardFile</key>
 	<string>Main</string>
 	<key>UISupportedInterfaceOrientations</key>
-
-	<key>NSCameraUsageDescription</key>
-    <string>We need camera access to scan receipts.</string>
-    <key>NSPhotoLibraryUsageDescription</key>
-    <string>We need photo library access to select receipt images.</string>
-
-
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
 		<string>UIInterfaceOrientationLandscapeLeft</string>
@@ -48,6 +41,12 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
+	<key>NSCameraUsageDescription</key>
+    <string>We need camera access to scan receipts.</string>
+    <key>NSMicrophoneUsageDescription</key>
+     <string>We need camera microphone access to record audio.</string>
+    <key>NSPhotoLibraryUsageDescription</key>
+    <string>We need photo library access to select receipt images.</string>
 	<key>CADisableMinimumFrameDurationOnPhone</key>
 	<true/>
 	<key>UIApplicationSupportsIndirectInputEvents</key>

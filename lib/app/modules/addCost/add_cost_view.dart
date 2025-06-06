@@ -26,9 +26,16 @@ class AddCostView extends GetView<AddCostController> {
         ),
       ),
       bottomNavigationBar: Padding(
-        padding:  EdgeInsets.only(bottom: context.mediaQueryPadding.bottom+24,left: 16,right: 16),
+        padding: EdgeInsets.only(
+          bottom: context.mediaQueryPadding.bottom + 24,
+          left: 16,
+          right: 16,
+        ),
         child: CommonButton(
-          onPressed: () {},
+          onPressed: () {
+            var from = controller.isManual.value ? "custom" : "scan";
+            Get.toNamed(Routes.GROUP_SPLIT, arguments: {"from": from});
+          },
           text: "Next",
         ),
       ),
@@ -81,7 +88,7 @@ class AddCostView extends GetView<AddCostController> {
 
         CommonButton(
           onPressed: () {
-            // controller.isManual.value = false;
+            controller.isManual.value = false;
             Get.toNamed(Routes.BILL_SCANNER);
           },
           gradientColors: [
@@ -93,7 +100,7 @@ class AddCostView extends GetView<AddCostController> {
             spacing: 8,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Icon(Icons.qr_code_scanner,size: 24,color: primaryClr,),
+              Icon(Icons.qr_code_scanner, size: 24, color: primaryClr),
               CommonText.medium("Scan the bill", size: 16),
             ],
           ),
@@ -106,10 +113,7 @@ class AddCostView extends GetView<AddCostController> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        CommonText.semiBold(
-          "New bill",
-          size: 18,
-        ),
+        CommonText.semiBold("New bill", size: 18),
         const SizedBox(height: 10),
         Expanded(
           child: ListView.builder(
@@ -137,16 +141,19 @@ class AddCostView extends GetView<AddCostController> {
                       onPressed: () => controller.updateQuantity(index, 1),
                     ),
                     SizedBox(width: 8),
-                    CommonText.medium("₹ ${(item.total).toStringAsFixed(2)}", size: 13),
+                    CommonText.medium(
+                      "₹ ${(item.total).toStringAsFixed(2)}",
+                      size: 13,
+                    ),
                   ],
                 ),
               );
             },
-          )
+          ),
         ),
         CommonText.semiBold(
           "Total: ₹ ${controller.total.toStringAsFixed(2)}",
-         size: 15,
+          size: 15,
         ),
         SizedBox(height: 8),
         CommonTextField(
@@ -167,11 +174,10 @@ class AddCostView extends GetView<AddCostController> {
         const SizedBox(height: 12),
         TextButton.icon(
           onPressed: () => controller.isManual.value = true,
-          icon: Icon(Icons.edit,color: primaryClr),
-          label: CommonText.medium("Add costs manually",size: 16),
+          icon: Icon(Icons.edit, color: primaryClr),
+          label: CommonText.medium("Add costs manually", size: 16),
         ),
       ],
     );
   }
-
 }

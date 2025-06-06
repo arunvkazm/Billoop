@@ -43,6 +43,7 @@ class CommonAppBar extends StatelessWidget implements PreferredSizeWidget {
     return AppBar(
       title: title != null ? CommonText.semiBold(title!,size: 20,color: titleClr??onSurfaceClr,) : null,
       centerTitle: centerTitle,
+
       automaticallyImplyLeading: automaticallyImplyLeading,
       leading: isBackIconVisible? automaticallyImplyLeading
           ? IconButton(
